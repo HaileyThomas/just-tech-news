@@ -49,6 +49,24 @@ router.post('/', (req, res) => {
         });
 });
 
+// LOGIN
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(dbUserData => {
+        if (!dbUserData) {
+            res.status(400).json({ message: 'No user with that email address!' });
+            return;
+        }
+
+        res.json({ ser: dbUserData });
+
+        // verify user
+    });
+});
+
 // PUT /api/users/1
 router.put('/:id', (req, res) => {
     // if req.body has exact key/value pairs to match to model you can just use req.body instead
